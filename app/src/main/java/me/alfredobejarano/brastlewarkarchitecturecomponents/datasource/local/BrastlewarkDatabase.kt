@@ -4,12 +4,14 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import me.alfredobejarano.brastlewarkarchitecturecomponents.BuildConfig
 import me.alfredobejarano.brastlewarkarchitecturecomponents.model.Gnome
 
 /**
  * Database that defines the app database schemas.
  */
+@TypeConverters(StringListTypeConverter::class)
 @Database(version = BuildConfig.VERSION_CODE, exportSchema = false, entities = [Gnome::class])
 abstract class BrastlewarkDatabase : RoomDatabase() {
     companion object {

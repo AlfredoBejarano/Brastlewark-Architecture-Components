@@ -3,7 +3,6 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.repository
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeCacheTimeStampDataSource
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeDao
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.remote.GnomeApiService
-import java.lang.Exception
 
 /**
  * Class that serves as the single source of truth for the gnome population.
@@ -14,23 +13,30 @@ class GnomeRepository(
     private val cacheDataSource: GnomeCacheTimeStampDataSource
 ) {
     /**
-     * Retrieves the gnome population from the network.
-     * @return [Pair] class containing the gnomes list or an exception, if any.
+     * Executes a given suspend block and returns its result, if an exception is thrown, reports
+     * the exception and returns null.
+     * @param block Suspend function to execute.
+     * @return Result of the block code.
      */
-    private suspend fun getGnomePopulationFromNetwork() = try {
-        remoteDataSource.getBrastlewarkPopulation().population
+    private suspend fun <T> interact(block: suspend () -> T?) = try {
+        block()
     } catch (e: Exception) {
         null
     }
 
     /**
+     * Retrieves the gnome population from the network.
+     * @return [Pair] class containing the gnomes list or an exception, if any.
+     */
+    private suspend fun getGnomePopulationFromNetwork() =
+        interact { remoteDataSource.getBrastlewarkPopulation().population }
+
+    /**
      * Retrieves the gnome population from the cache database.
      * @return [Pair] class containing the gnomes list or an exception, if any.
      */
-    private suspend fun getGnomePopulationFromLocal() = try {
+    private suspend fun getGnomePopulationFromLocal() = interact {
         localDataSource.getAllGnomes()
-    } catch (e: Exception) {
-        null
     }
 
     /**
@@ -42,4 +48,11 @@ class GnomeRepository(
     } else {
         getGnomePopulationFromNetwork()
     }
+
+    /**
+     * Searches in the cache a Gnome with the given name.
+     * @param name Name of the gnome.
+     * @return Gnome found in the system.
+     */
+    suspend fun getGnome(name: String) = interact { localDataSource.getGnomeByName(name) }
 }

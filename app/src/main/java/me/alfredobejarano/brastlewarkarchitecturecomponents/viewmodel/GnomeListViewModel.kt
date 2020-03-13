@@ -36,8 +36,7 @@ class GnomeListViewModel(private val gnomeRepository: GnomeRepository) {
             gnomes.rangeFrom({ it?.friends?.size }) { it.first?.friends?.size to it.second?.friends?.size },
             gnomes.setFrom { it.professions },
             gnomes.setOf { it.hairColor }
-        )
-        )
+        ))
     }
 
     fun filter(

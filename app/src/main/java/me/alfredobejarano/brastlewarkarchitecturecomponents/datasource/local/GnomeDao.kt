@@ -25,6 +25,12 @@ interface GnomeDao {
     suspend fun getGnomeByName(name: String): Gnome?
 
     /**
+     * Retrieves a list a Gnome from the database.
+     */
+    @Query("SELECT * FROM Gnomes")
+    suspend fun getAllGnomes(): List<Gnome>?
+
+    /**
      * Deletes all records from the [Gnome] table.
      */
     @Query("DELETE FROM Gnomes")

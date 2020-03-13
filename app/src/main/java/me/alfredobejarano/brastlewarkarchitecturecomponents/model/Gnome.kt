@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.within
 
 /**
  * Model class that contains the data of a Gnome.
@@ -40,4 +41,16 @@ data class Gnome(
     @Expose
     @SerializedName("friends")
     val friends: List<String>? = emptyList()
-)
+) {
+    fun meetsFilters(filters: FilterSettings) = filters.let {
+        val hasAge = age.within(it.ageRange)
+        val hasWeight = weight.within(it.weightRange)
+        val hasHeight = height.within(it.heightRange)
+        val hasFriends = friends?.size.within(it.friendsRange)
+        val hasProfessions = professions?.containsAll(it.professions) == true
+        val hasHairColor =
+            hairColor?.let { color -> it.hairColors.contains(color) } ?: run { false }
+
+        hasAge && hasWeight && hasHeight && hasFriends && hasProfessions && hasHairColor
+    }
+}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,20 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ProgressBar
-                android:id="@+id/loadingBar"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/gnomeSearchToolbar"
                 android:layout_width="0dp"
                 android:layout_height="?android:attr/actionBarSize"
+                android:background="?android:attr/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -50,11 +42,13 @@
                         android:hint="@string/search_hint"
                         android:imeOptions="actionDone"
                         android:inputType="text"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:textColor="@android:color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.Toolbar>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gnomesList"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
@@ -63,13 +57,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gnomeSearchToolbar" />
+                app:layout_constraintTop_toBottomOf="@id/gnomeSearchToolbar"
+                tools:listitem="@layout/item_gnome" />
+
+            <ProgressBar
+                android:id="@+id/loadingBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end">
+            android:layout_gravity="end"
+            android:background="?android:attr/colorPrimary">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -86,6 +92,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                    app:left_thumb_color="?android:attr/colorPrimary"
+                    app:right_thumb_color="?android:attr/colorPrimary"
                     android:id="@+id/ageRangeView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -106,6 +114,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/ageRangeView" />
 
                 <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                    app:left_thumb_color="?android:attr/colorPrimary"
+                    app:right_thumb_color="?android:attr/colorPrimary"
                     android:id="@+id/weightRangeView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -126,6 +136,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/weightRangeView" />
 
                 <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                    app:left_thumb_color="?android:attr/colorPrimary"
+                    app:right_thumb_color="?android:attr/colorPrimary"
                     android:id="@+id/heightRangeView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -147,6 +159,7 @@
 
                 <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
                     android:id="@+id/friendsRangeView"
+                    app:left_thumb_color="?android:attr/colorPrimary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

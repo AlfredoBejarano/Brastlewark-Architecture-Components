@@ -1,18 +1,19 @@
 package me.alfredobejarano.brastlewarkarchitecturecomponents.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Job
+import me.alfredobejarano.brastlewarkarchitecturecomponents.adapters.GnomesAdapter
 import me.alfredobejarano.brastlewarkarchitecturecomponents.databinding.FragmentGnomeListBinding
 import me.alfredobejarano.brastlewarkarchitecturecomponents.di.Injector
 import me.alfredobejarano.brastlewarkarchitecturecomponents.di.ViewModelFactory
-import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.ExceptionReporter
 import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.observeSafely
 import me.alfredobejarano.brastlewarkarchitecturecomponents.viewmodel.MainViewModel
 import javax.inject.Inject
@@ -28,8 +29,10 @@ class GnomeListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         Injector.component.inject(this)
-        viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(
+            requireActivity() as ViewModelStoreOwner,
+            viewModelFactory
+        )[MainViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, state: Bundle?) =
@@ -39,12 +42,23 @@ class GnomeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupSearchBar()
         observeGnomeList()
+        dataBinding.gnomesList.layoutManager = LinearLayoutManager(requireContext())
         currentJob = viewModel.getGnomePopulation()
     }
 
-    private fun observeGnomeList() = observeSafely(viewModel.gnomesLiveData) {
+    private fun getSettings() =
+        observeSafely(viewModel.getFilterSettings(), dataBinding::setFilterSettings)
+
+    private fun observeGnomeList() = observeSafely(viewModel.gnomesLiveData) { gnomes ->
+        getSettings()
         currentJob = null
-        Log.d("GNOMES", it.toString())
+        dataBinding.gnomesList.run {
+            adapter?.let { (adapter as? GnomesAdapter)?.setGnomes(gnomes) } ?: run {
+                adapter = GnomesAdapter(gnomes) {
+
+                }
+            }
+        }
         dataBinding.loadingBar.visibility = View.GONE
     }
 

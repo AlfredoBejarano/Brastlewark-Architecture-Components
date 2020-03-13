@@ -3,6 +3,7 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.utils
 import androidx.databinding.BindingAdapter
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
 import com.facebook.drawee.view.SimpleDraweeView
+import me.alfredobejarano.brastlewarkarchitecturecomponents.R
 
 class BindingAdapters {
     companion object {
@@ -23,6 +24,8 @@ class BindingAdapters {
         @JvmStatic
         @BindingAdapter("imageSrc")
         fun setImageSrc(draweeView: SimpleDraweeView, src: String?) =
-            src?.run(draweeView::setImageURI) ?: Unit
+            src?.run { draweeView.setImageURI(src) } ?: run {
+                draweeView.setImageResource(R.drawable.ic_placeholder_picture)
+            }
     }
 }

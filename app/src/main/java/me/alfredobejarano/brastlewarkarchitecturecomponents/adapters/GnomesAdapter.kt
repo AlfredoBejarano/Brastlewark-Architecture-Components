@@ -8,12 +8,15 @@ import me.alfredobejarano.brastlewarkarchitecturecomponents.databinding.ItemGnom
 import me.alfredobejarano.brastlewarkarchitecturecomponents.model.Gnome
 import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.asCleanList
 
-class GnomesAdapter(private var gnomes: List<Gnome>) :
+class GnomesAdapter(
+    private var gnomes: List<Gnome>,
+    private val onItemSelected: (gnome: Gnome) -> Unit
+) :
     RecyclerView.Adapter<GnomesAdapter.GnomeItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ItemGnomeBinding.inflate(LayoutInflater.from(parent.context), parent, false).run {
-            GnomeItem(this)
+            GnomeItem(this, onItemSelected)
         }
 
     override fun getItemCount() = gnomes.size
@@ -39,10 +42,18 @@ class GnomesAdapter(private var gnomes: List<Gnome>) :
             areItemsTheSame(oldItemPosition, newItemPosition)
     }
 
-    class GnomeItem(private val binding: ItemGnomeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class GnomeItem(
+        private val binding: ItemGnomeBinding,
+        private val onItemSelected: (gnome: Gnome) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(gnome: Gnome) {
             binding.gnome = gnome
             binding.gnomeProfessions.text = gnome.professions.asCleanList()
+            binding.root.setOnClickListener {
+                onItemSelected(gnome)
+            }
+
         }
     }
 }

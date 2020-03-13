@@ -1,9 +1,9 @@
 package me.alfredobejarano.brastlewarkarchitecturecomponents.repository
 
-import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.ExceptionReporter
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeCacheTimeStampDataSource
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeDao
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.remote.GnomeApiService
+import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.ExceptionReporter
 import javax.inject.Inject
 
 /**
@@ -31,8 +31,12 @@ class GnomeRepository @Inject constructor(
      * Retrieves the gnome population from the network.
      * @return [Pair] class containing the gnomes list or an exception, if any.
      */
-    private suspend fun getGnomePopulationFromNetwork() =
-        interact { remoteDataSource.getBrastlewarkPopulation().population }
+    private suspend fun getGnomePopulationFromNetwork() = interact {
+        val population = remoteDataSource.getBrastlewarkPopulation().population
+        if (population?.isNotEmpty() == true) population.forEach { localDataSource.createOrUpdate(it) }
+        cacheDataSource.generateGnomeCache()
+        population
+    }
 
     /**
      * Retrieves the gnome population from the cache database.

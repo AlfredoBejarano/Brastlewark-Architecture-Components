@@ -49,8 +49,8 @@ class MainViewModel @Inject constructor(private val gnomeRepository: GnomeReposi
     fun getFilterSettings() = liveData {
         emit(FilterSettings(
             gnomes.rangeFrom({ it?.age }) { it.first?.age to it.second?.age },
-            gnomes.rangeFrom({ it?.weight }) { it.first?.weight to it.second?.weight },
-            gnomes.rangeFrom({ it?.height }) { it.first?.height to it.second?.height },
+            gnomes.rangeFrom({ it?.weight?.toInt() }) { it.first?.weight?.toInt() to it.second?.weight?.toInt() },
+            gnomes.rangeFrom({ it?.height?.toInt() }) { it.first?.height?.toInt() to it.second?.height?.toInt() },
             gnomes.rangeFrom({ it?.friends?.size }) { it.first?.friends?.size to it.second?.friends?.size },
             gnomes.setFrom { it.professions },
             gnomes.setOf { it.hairColor }

@@ -1,6 +1,7 @@
 package me.alfredobejarano.brastlewarkarchitecturecomponents.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,15 +39,18 @@ class GnomeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupSearchBar()
         observeGnomeList()
+        currentJob = viewModel.getGnomePopulation()
     }
 
     private fun observeGnomeList() = observeSafely(viewModel.gnomesLiveData) {
         currentJob = null
-        ExceptionReporter.reportException(Exception(it.toString()))
+        Log.d("GNOMES", it.toString())
+        dataBinding.loadingBar.visibility = View.GONE
     }
 
     private fun setupSearchBar() = dataBinding.searchInputEditText.addTextChangedListener {
         currentJob = viewModel.searchForGnome(it)
+        dataBinding.loadingBar.visibility = View.VISIBLE
     }
 
     private fun cancelJob() {

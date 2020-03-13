@@ -28,10 +28,10 @@ data class Gnome(
     val age: Int? = 0,
     @Expose
     @SerializedName("weight")
-    val weight: Int? = 0,
+    val weight: Float? = 0f,
     @Expose
     @SerializedName("height")
-    val height: Int? = 0,
+    val height: Float? = 0f,
     @Expose
     @SerializedName("hair_color")
     val hairColor: String? = "",
@@ -44,8 +44,8 @@ data class Gnome(
 ) {
     fun meetsFilters(filters: FilterSettings) = filters.let {
         val hasAge = age.within(it.ageRange)
-        val hasWeight = weight.within(it.weightRange)
-        val hasHeight = height.within(it.heightRange)
+        val hasWeight = weight?.toInt().within(it.weightRange)
+        val hasHeight = height?.toInt().within(it.heightRange)
         val hasFriends = friends?.size.within(it.friendsRange)
         val hasProfessions = professions?.containsAll(it.professions) == true
         val hasHairColor =

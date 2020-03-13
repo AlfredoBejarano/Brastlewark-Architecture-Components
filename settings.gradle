@@ -1,0 +1,2 @@
+rootProject.name='BrastlewarkArchitectureComponents'
+include ':app'

@@ -1,4 +1,20 @@
 <resources>
+    <plurals name="gnome_name">
+        <item quantity="one">%1$s\nAge: %2$d year old</item>
+        <item quantity="other">%1$s\nAge: %2$d years old</item>
+    </plurals>
+    <plurals name="gnome_age">
+        <item quantity="one">Age: %1$d year old</item>
+        <item quantity="other">Age: %1$d years old</item>
+    </plurals>
+    <plurals name="gnome_professions">
+        <item quantity="one">Profession</item>
+        <item quantity="other">Professions</item>
+    </plurals>
+    <plurals name="gnome_friends">
+        <item quantity="one">Friend</item>
+        <item quantity="other">Friends</item>
+    </plurals>
     <string name="app_name">BrastlewarkArchitectureComponents</string>
     <string name="search_hint">search gnome by name</string>
     <string name="age">Age</string>

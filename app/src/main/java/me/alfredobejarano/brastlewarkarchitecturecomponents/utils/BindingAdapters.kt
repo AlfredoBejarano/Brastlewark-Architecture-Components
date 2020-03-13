@@ -2,6 +2,7 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.utils
 
 import androidx.databinding.BindingAdapter
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+import com.facebook.drawee.view.SimpleDraweeView
 
 class BindingAdapters {
     companion object {
@@ -18,5 +19,10 @@ class BindingAdapters {
                 setMaxStartValue(max)
             }
         }
+
+        @JvmStatic
+        @BindingAdapter("imageSrc")
+        fun setImageSrc(draweeView: SimpleDraweeView, src: String?) =
+            src?.run(draweeView::setImageURI) ?: Unit
     }
 }

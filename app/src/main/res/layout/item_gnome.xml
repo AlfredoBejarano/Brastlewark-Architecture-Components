@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="gnome"
+            type="me.alfredobejarano.brastlewarkarchitecturecomponents.model.Gnome" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:backgroundTint="@android:color/white"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/gnomeProfilePicture"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:actualImageResource="@drawable/ic_person_white_24dp"
+            app:imageSrc="@{gnome.thumbnailUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholderImage="@drawable/ic_person_white_24dp"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/gnomeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0.8"
+            android:maxLines="2"
+            android:text="@{@plurals/gnome_name(gnome.age, gnome.name, gnome.age)}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/gnomeProfessions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gnomeProfilePicture"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="I'm a Gnome!\n320 years old" />
+
+        <TextView
+            android:id="@+id/gnomeProfessions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0.75"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gnomeProfilePicture"
+            app:layout_constraintTop_toBottomOf="@id/gnomeName"
+            tools:text="Professions: Swordmaker, Doctor, Necromancer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

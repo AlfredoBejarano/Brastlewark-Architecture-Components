@@ -15,7 +15,7 @@ import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.setFrom
 import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.setOf
 import javax.inject.Inject
 
-class GnomeListViewModel @Inject constructor(private val gnomeRepository: GnomeRepository) :
+class MainViewModel @Inject constructor(private val gnomeRepository: GnomeRepository) :
     ViewModel() {
     private var gnomes = listOf<Gnome>()
 

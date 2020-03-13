@@ -3,6 +3,7 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.di
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
+import me.alfredobejarano.brastlewarkarchitecturecomponents.ui.MainActivity
 import javax.inject.Singleton
 
 @Singleton
@@ -16,4 +17,6 @@ interface BrastlewarkApplicationComponent {
 
         fun dataSourceModule(module: DataSourceModule): Builder
     }
+
+    fun inject(activity: MainActivity)
 }

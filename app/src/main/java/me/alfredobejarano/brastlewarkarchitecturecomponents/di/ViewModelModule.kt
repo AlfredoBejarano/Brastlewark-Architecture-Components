@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import me.alfredobejarano.brastlewarkarchitecturecomponents.viewmodel.GnomeDetailsViewModel
-import me.alfredobejarano.brastlewarkarchitecturecomponents.viewmodel.GnomeListViewModel
+import me.alfredobejarano.brastlewarkarchitecturecomponents.viewmodel.MainViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -20,6 +20,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(GnomeListViewModel::class)
-    abstract fun bindGnomeListViewModel(viewModel: GnomeListViewModel): ViewModel
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindGnomeListViewModel(viewModel: MainViewModel): ViewModel
 }

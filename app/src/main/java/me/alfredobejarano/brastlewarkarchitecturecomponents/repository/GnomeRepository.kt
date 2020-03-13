@@ -1,5 +1,6 @@
 package me.alfredobejarano.brastlewarkarchitecturecomponents.repository
 
+import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.ExceptionReporter
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeCacheTimeStampDataSource
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeDao
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.remote.GnomeApiService
@@ -22,6 +23,7 @@ class GnomeRepository @Inject constructor(
     private suspend fun <T> interact(block: suspend () -> T?) = try {
         block()
     } catch (e: Exception) {
+        ExceptionReporter.reportException(e)
         null
     }
 

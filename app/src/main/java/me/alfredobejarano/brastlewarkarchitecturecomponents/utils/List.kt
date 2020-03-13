@@ -20,3 +20,9 @@ fun <T> List<T>.setOf(block: (element: T) -> String?): Set<String> {
     if (isNotEmpty()) forEach { block(it)?.run { set = set.plus(this) } }
     return set
 }
+
+fun List<String>?.asCleanList() = this?.let {
+    it.toString().replace("[", "").replace(", ]", "").replace("]", "")
+} ?: run {
+    ""
+}

@@ -3,11 +3,12 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.repository
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeCacheTimeStampDataSource
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.local.GnomeDao
 import me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.remote.GnomeApiService
+import javax.inject.Inject
 
 /**
  * Class that serves as the single source of truth for the gnome population.
  */
-class GnomeRepository(
+class GnomeRepository @Inject constructor(
     private val localDataSource: GnomeDao,
     private val remoteDataSource: GnomeApiService,
     private val cacheDataSource: GnomeCacheTimeStampDataSource

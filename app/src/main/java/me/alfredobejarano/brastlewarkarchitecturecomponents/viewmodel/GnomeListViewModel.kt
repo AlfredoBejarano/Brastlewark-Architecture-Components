@@ -2,6 +2,7 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -12,8 +13,10 @@ import me.alfredobejarano.brastlewarkarchitecturecomponents.repository.GnomeRepo
 import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.rangeFrom
 import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.setFrom
 import me.alfredobejarano.brastlewarkarchitecturecomponents.utils.setOf
+import javax.inject.Inject
 
-class GnomeListViewModel(private val gnomeRepository: GnomeRepository) {
+class GnomeListViewModel @Inject constructor(private val gnomeRepository: GnomeRepository) :
+    ViewModel() {
     private var gnomes = listOf<Gnome>()
 
     private val gnomesMutableLiveData = MutableLiveData<List<Gnome>>()

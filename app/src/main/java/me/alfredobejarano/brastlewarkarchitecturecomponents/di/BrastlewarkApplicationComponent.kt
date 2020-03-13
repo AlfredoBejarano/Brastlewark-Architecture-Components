@@ -6,7 +6,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DataSourceModule::class])
+@Component(modules = [DataSourceModule::class, ViewModelModule::class])
 interface BrastlewarkApplicationComponent {
     @Component.Builder
     interface Builder {

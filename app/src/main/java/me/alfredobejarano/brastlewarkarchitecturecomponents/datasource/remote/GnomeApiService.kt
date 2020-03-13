@@ -1,6 +1,5 @@
 package me.alfredobejarano.brastlewarkarchitecturecomponents.datasource.remote
 
-import me.alfredobejarano.brastlewarkarchitecturecomponents.BuildConfig
 import me.alfredobejarano.brastlewarkarchitecturecomponents.model.Brastlewark
 import retrofit2.http.GET
 
@@ -11,6 +10,6 @@ interface GnomeApiService {
     /**
      * Retrieves the population list from Brastlewark endpoints.
      */
-    @GET(BuildConfig.SERVER_URL)
+    @GET("data.json")
     suspend fun getBrastlewarkPopulation(): Brastlewark
 }

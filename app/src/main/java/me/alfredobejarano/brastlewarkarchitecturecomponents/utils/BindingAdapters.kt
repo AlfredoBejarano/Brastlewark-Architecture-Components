@@ -7,10 +7,10 @@ class BindingAdapters {
     companion object {
         @JvmStatic
         @BindingAdapter("setRange")
-        fun setRange(seekBar: CrystalRangeSeekbar, range: IntRange) {
+        fun setRange(seekBar: CrystalRangeSeekbar, range: IntRange?) {
             seekBar.run {
-                val min = range.first.toFloat()
-                val max = range.last.toFloat()
+                val min = range?.first?.toFloat() ?: 0f
+                val max = range?.last?.toFloat() ?: 0f
 
                 setMinValue(min)
                 setMaxValue(max)

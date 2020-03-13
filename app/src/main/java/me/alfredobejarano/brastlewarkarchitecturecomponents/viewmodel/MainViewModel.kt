@@ -1,5 +1,6 @@
 package me.alfredobejarano.brastlewarkarchitecturecomponents.viewmodel
 
+import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,20 @@ class MainViewModel @Inject constructor(private val gnomeRepository: GnomeReposi
 
     fun getGnomePopulation() = GlobalScope.launch(Dispatchers.IO) {
         gnomesMutableLiveData.postValue(if (gnomes.isNotEmpty()) gnomes else getGnomesFromRepository())
+    }
+
+    fun searchForGnome(query: Editable?) = GlobalScope.launch(Dispatchers.IO) {
+        gnomesMutableLiveData.postValue(query?.let {
+            it.toString().let { safeQuery ->
+                if (safeQuery.isNotBlank()) {
+                    gnomes.filter { gnome -> gnome.name?.contains(safeQuery, true) == true }
+                } else {
+                    gnomes
+                }
+            }
+        } ?: run {
+            gnomes
+        })
     }
 
     private suspend fun getGnomesFromRepository() = gnomeRepository.getGnomePopulation()?.run {

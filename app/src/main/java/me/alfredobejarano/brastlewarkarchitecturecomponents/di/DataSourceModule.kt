@@ -42,6 +42,7 @@ class DataSourceModule(private val app: Application) {
         Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(gsonConverter)
+            .baseUrl(BuildConfig.SERVER_URL)
             .build()
     }
 

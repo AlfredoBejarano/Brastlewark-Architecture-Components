@@ -3,6 +3,7 @@ package me.alfredobejarano.brastlewarkarchitecturecomponents.di
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
+import me.alfredobejarano.brastlewarkarchitecturecomponents.ui.GnomeListFragment
 import me.alfredobejarano.brastlewarkarchitecturecomponents.ui.MainActivity
 import javax.inject.Singleton
 
@@ -19,4 +20,5 @@ interface BrastlewarkApplicationComponent {
     }
 
     fun inject(activity: MainActivity)
+    fun inject(fragment: GnomeListFragment)
 }

@@ -13,7 +13,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "SERVER_URL", "\"https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json\""
+        buildConfigField "String", "SERVER_URL", "\"https://raw.githubusercontent.com/rrafols/mobile_test/master/\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
